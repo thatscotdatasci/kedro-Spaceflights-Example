@@ -1,4 +1,8 @@
+import logging
+
 import pandas as pd
+
+log = logging.getLogger(__name__)
 
 
 def _is_true(x: pd.Series) -> pd.Series:
@@ -26,6 +30,7 @@ def preprocess_companies(companies: pd.DataFrame) -> pd.DataFrame:
         Preprocessed data, with `company_rating` converted to a float and
         `iata_approved` converted to boolean.
     """
+    log.info("Entered data processing node")
     companies["iata_approved"] = _is_true(companies["iata_approved"])
     companies["company_rating"] = _parse_percentage(companies["company_rating"])
     return companies
